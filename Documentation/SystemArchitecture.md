@@ -22,45 +22,49 @@ The BatteryAssistCharger does not attempt to find its own operating point on the
 ## 2. System Overview
 
 ```text
-                         Solar Panels
+        Solar Panels                    External DC
+             │                                |
+             │                                │
+             ▼                                ▼
+        ┌──────────────────────────────────────────┐
+        │          BatterySourceCharger            │
+        │                                          │
+        │  Solar MPPT                              │
+        │  External DC charging                    │
+        │  Input source management                 │
+        │  24 V battery charging                   │
+        │  Power / SolarShare management           │
+        └────────────────────┬─────────────────────┘
+                             │
+                             ▼
+                       ┌─────────────┐
+                       │24 V Battery │
+                       └──────┬──────┘
+                              │
+                              │  24 V battery bus
                               │
                               ▼
-                    ┌─────────────────────┐
-                    │ BatterySourceCharger│
-                    │                     │
-                    │ Solar MPPT          │
-                    │ 24 V charging       │
-                    │ Power management    │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                         ┌───────────┐
-                         │24 V Battery│
-                         └─────┬─────┘
-                               │
-                               │  24 V battery bus
-                               │
-                               ▼
-                    ┌─────────────────────┐
- External DC ──────►│ BatteryAssistCharger│
- Auxiliary DC ─────►│                     │
-                    │ 12 V charging       │
-                    │ SolarShare          │
-                    │ Battery support     │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                         ┌───────────┐
-                         │12 V Battery│
-                         └───────────┘
+                     ┌─────────────────────┐
+ External DC ───────►│ BatteryAssistCharger│
+ Auxiliary DC ──────►│                     │
+                     │ 12 V charging       │
+                     │ SolarShare          │
+                     │ Battery support     │
+                     └──────────┬──────────┘
+                                │
+                                ▼
+                          ┌─────────────┐
+                          │12 V Battery │
+                          └─────────────┘
 
 
-              UART communication
-     BatterySourceCharger ◄────────► BatteryAssistCharger
-                         │
-                         ▼
-                 BatteryProtocolMonitor
-                    passive monitor
+                   UART communication
+       BatterySourceCharger ◄────────► BatteryAssistCharger
+                           │
+                           ▼
+                   BatteryProtocolMonitor
+                      passive monitor
+
 ```
 
 
